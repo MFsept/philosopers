@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/06 02:23:28 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/06 12:39:44 by mfernand         ###   ########.fr       */
+/*   Created: 2025/06/06 11:52:06 by mfernand          #+#    #+#             */
+/*   Updated: 2025/06/06 11:56:22 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int main(int ac, char **av)
+int check_args(int ac)
 {
-    t_info info;
-    
-    if (check_args(&info, ac, av))
-        return (1);
+    if (ac < 5 && ac > 6)
+    {
+        printf("Wrong Arguments\n");
+        printf("Expected : ./philo nb_philo ttdie tteat ttsleep (max_meals)\n");
+        return (ERROR);
+    }
+    if (ac == 6)
+        //setup max_meals
+    else
+        //max_meals = -1
 
+    return (SUCCESS);
 }
