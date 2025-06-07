@@ -6,12 +6,18 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 12:21:46 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/07 20:44:16 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/07 23:11:32 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+static void smart_usleep(long duration, t_info *info)
+{
+    long start = get_time_ms();
+    while (!info->end && (get_time_ms() - start < duration))
+        usleep(duration * 1000);
+}
 
 static char *one_philo(t_philo *philo)
 {
@@ -37,15 +43,15 @@ void	*philo_routine(void *arg)
         safe_printf(philo, "is eating");
         philo->last_meal = get_time_ms();
         philo->nb_meals++;
-        if (philo->info->end && (get_time_ms() + philo->last_meal < philo->info->tte))
+        if (philo->info->end && (get_time_ms() - philo->last_meal < philo->info->tte))
             break;
-        usleep(philo->info->tte);
+        smart_usleep(philo->info->tte, philo->info);
         safe_handle_mutex(philo->left_fork, UNLOCK);
         safe_handle_mutex(philo->right_fork, UNLOCK);
         safe_printf(philo, "is sleeping");
-        if (philo->info->end && (get_time_ms() + philo->last_meal < philo->info->tts))
+        if (philo->info->end && (get_time_ms() - philo->last_meal < philo->info->tts))
             break;
-        usleep(philo->info->tts);
+        smart_usleep(philo->info->tts, philo->info);
         safe_printf(philo, "is thinking");
     }
     return NULL;

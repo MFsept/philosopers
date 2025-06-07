@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 12:35:18 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/07 20:50:54 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/07 23:10:21 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	init_args(t_info *info, char **av)
 {
 	info->nb_philo = ft_atol(av[1]);
-	info->ttd = ft_atol(av[2]) * 1000;
-	info->tte = ft_atol(av[3]) * 1000;
-	info->tts = ft_atol(av[4]) * 1000;
+	info->ttd = ft_atol(av[2]);
+	info->tte = ft_atol(av[3]);
+	info->tts = ft_atol(av[4]);
 	if (av[5])
 		info->max_meals = ft_atol(av[5]);
 	else
@@ -48,7 +48,6 @@ void	init_philo(t_info *info)
         info->philo[i].time_since_eat = 0;
         info->philo[i].info = info;
 		info->philo[i].last_meal = info->start_time;
-		info->philo->is_dead = FALSE;
 		init_forks(info, &info->philo[i], i);
 	}
 }
