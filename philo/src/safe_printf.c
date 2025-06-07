@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 12:42:28 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/07 14:32:08 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/07 20:43:13 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	safe_printf(t_philo *philo, const char *msg)
 
     timestamp = get_time_ms() - philo->info->start_time;
     safe_handle_mutex(&philo->info->print_mutex, LOCK);
-    printf("%ld Philo %d %s\n", timestamp, philo->id, msg);
+    if (!philo->is_dead)
+        printf("%ld Philo %d %s\n", timestamp, philo->id, msg);
     safe_handle_mutex(&philo->info->print_mutex, UNLOCK);
 }
 

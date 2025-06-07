@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 12:35:18 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/07 15:34:57 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/07 20:46:54 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	init_philo(t_info *info)
         info->philo[i].time_since_eat = 0;
         info->philo[i].info = info;
 		info->philo[i].last_meal = info->start_time;
+		info->philo[i].is_dead = FALSE;
 		init_forks(info, &info->philo[i], i);
 	}
 }

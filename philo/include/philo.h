@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 02:23:24 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/07 15:01:03 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/07 20:49:06 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_philo
 	int				full;
 	long			time_since_eat;
 	long			last_meal;
+	int				is_dead;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	struct s_info	*info;
@@ -55,7 +56,7 @@ typedef struct s_philo
 
 typedef struct s_info
 {
-	long			nb_philo;
+	int			nb_philo;
 	long			ttd;
 	long			tte;
 	long			tts;
@@ -67,10 +68,9 @@ typedef struct s_info
 	t_philo			philo[200];
 }					t_info;
 
+// MONITORING
 
-//MONITORING
-
-void	*monitor_routine(void *arg);
+void				*monitor_routine(void *arg);
 
 // SAFE PRINTF
 
