@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 14:49:07 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/07 20:45:54 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/07 20:51:11 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*monitor_routine(void *arg)
             {
                 safe_printf(&info->philo[i], "died");
                 info->end = TRUE;
-                info->philo[i].is_dead = TRUE;
+                info->philo->is_dead = TRUE;
                 return NULL;
             }
             if (info->max_meals > 0 && info->philo[i].nb_meals >= info->max_meals)
