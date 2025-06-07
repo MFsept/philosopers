@@ -1,11 +1,18 @@
 NAME = philo
 
-SRC = src/main.c \
-		src/errors.c \
-		src/utils.c \
+SRCDIR = src
+SRC = main.c \
+		errors.c \
+		utils.c \
+		init_args.c \
+		handle_mutex.c \
+		handle_thread.c \
+		routine.c \
+		safe_printf.c \
 
 
-OBJ = $(SRC:.c=.o)
+OBJDIR = obj
+OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 
 
 INCLUDE = include
@@ -15,22 +22,20 @@ CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME): $(OBJS_CLIENT) $(LIBFT) $(PRINTF)
+$(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
 
-
-
-
-src/%.o: src/%.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
 clean:
-	rm -f $(OBJS_CLIENT) $(OBJS_SERVER)
+	rm -rf $(OBJDIR)
 
 fclean: clean
-	rm -f $(CLIENT) $(SERVER) $(LIBFT) $(PRINTF)
-
+	rm -f $(NAME)
+	
 re: fclean all
 
 bonus: all

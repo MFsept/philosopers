@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 02:23:24 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/06 16:57:27 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/07 13:08:55 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ typedef struct s_philo
 	long			nb_meals;
 	int				full;
 	long			time_since_eat;
-	t_mutex_info	*left_fork;
-	t_mutex_info	*right_fork;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
 	struct s_info	*info;
 }					t_philo;
 
@@ -60,22 +60,24 @@ typedef struct s_info
 	long			tts;
 	long			max_meals;
 	int				end;
-	t_mutex_info	fork[200];
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	fork[200];
 	t_philo			philo[200];
 }					t_info;
 
-typedef struct s_mutex_info
-{
-	pthread_mutex_t	fork;
-	int				print_safe;
+// SAFE PRINTF
 
-}					t_mutex_info;
+void				safe_printf(t_philo *philo, const char *msg);
 
 // ERRORS
-int					check_args(t_info *info, int ac, char **av);
+int					check_args(int ac, char **av);
 
 // UTILS
-long				ft_atol(const char *s);
+char				*valid_input(char *s);
+long				ft_atol(char *s);
+
+// ROUTINE
+void				*philo_routine(void *arg);
 
 // INIT_ARGS
 void				init_args(t_info *info, char **av);
@@ -84,10 +86,10 @@ void				init_philo(t_info *info);
 void				init_forks(t_info *info, t_philo *philo, int i);
 
 // handle_MUTEX
-void				safe_handle_mutex(t_mutex_info *mtx, t_mutex code);
+void				safe_handle_mutex(pthread_mutex_t *mtx, t_mutex code);
 
 // HANDE_THREAD
-void				safe_handle_thread(t_mutex_info *mtx, void *(*foo)(void *),
+void				safe_handle_thread(pthread_t *thread, void *(*foo)(void *),
 						void *data, t_thread code);
 #endif
 
