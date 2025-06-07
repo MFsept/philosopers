@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 02:23:24 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/07 21:43:01 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/07 23:14:51 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,3 +104,6 @@ void				safe_handle_thread(pthread_t *thread, void *(*foo)(void *),
 // start eating -> philo pair usleep500
 // start thinking -> philo pair usleep100
 // choisir pair ou impair juste pour empehcer que les threads qui suit rattrape le process en cours eteviter les deadlock
+
+
+//check pour mettre en place une desync

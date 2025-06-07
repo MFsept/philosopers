@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 12:21:46 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/07 23:11:32 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/08 00:44:50 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void smart_usleep(long duration, t_info *info)
 {
     long start = get_time_ms();
     while (!info->end && (get_time_ms() - start < duration))
-        usleep(duration * 1000);
+        usleep(500);
 }
 
 static char *one_philo(t_philo *philo)
@@ -34,6 +34,8 @@ void	*philo_routine(void *arg)
 
     if (philo->info->nb_philo == 1)
         return (one_philo(philo));
+    if (philo->id % 2 == 0)
+        usleep(1000);
     while (!philo->info->end)
     {
         safe_handle_mutex(philo->left_fork, LOCK);
