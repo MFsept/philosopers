@@ -9,6 +9,7 @@ SRC = main.c \
 		handle_thread.c \
 		routine.c \
 		safe_printf.c \
+		monitoring.c \
 
 
 OBJDIR = obj

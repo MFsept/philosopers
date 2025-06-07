@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 02:23:24 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/07 13:08:55 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/07 15:01:03 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_philo
 	long			nb_meals;
 	int				full;
 	long			time_since_eat;
+	long			last_meal;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	struct s_info	*info;
@@ -60,14 +61,21 @@ typedef struct s_info
 	long			tts;
 	long			max_meals;
 	int				end;
+	long			start_time;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	fork[200];
 	t_philo			philo[200];
 }					t_info;
 
+
+//MONITORING
+
+void	*monitor_routine(void *arg);
+
 // SAFE PRINTF
 
 void				safe_printf(t_philo *philo, const char *msg);
+long				get_time_ms(void);
 
 // ERRORS
 int					check_args(int ac, char **av);
