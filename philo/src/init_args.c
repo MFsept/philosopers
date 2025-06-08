@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 12:35:18 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/08 00:43:00 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/08 13:12:36 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	init_philo(t_info *info)
         info->philo[i].time_since_eat = 0;
         info->philo[i].info = info;
 		info->philo[i].last_meal = info->start_time;
+		safe_handle_mutex(&info->philo[i].meal_mutex, INIT); 
 		init_forks(info, &info->philo[i], i);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 14:49:07 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/07 21:43:42 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/08 13:08:25 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,41 @@
 
 void	*monitor_routine(void *arg)
 {
-    t_info *info = (t_info *)arg;
-    int i;
-    long    time_hungry;
-    int philo_full;
-    
-    while(!info->end)
-    {
-        i = -1;
-        philo_full = 0;
-         while (++i < info->nb_philo)
-        {
-            time_hungry = get_time_ms() - info->philo[i].last_meal;
-            if (time_hungry > info->ttd)
-            {
-                safe_printf(&info->philo[i], "died");
-                info->end = TRUE;
-                return NULL;
-            }
-            if (info->max_meals > 0 && info->philo[i].nb_meals >= info->max_meals)
-                philo_full++;
-        }
-        if (info->max_meals > 0 && philo_full == info->nb_philo)
-        {
-            info->end = TRUE;
-            return (NULL);
-        }
-        else
-            usleep(1000);
-    }
-    return(NULL);
+	t_info	*info;
+	int		i;
+	long	time_hungry;
+	int		philo_full;
+
+	info = (t_info *)arg;
+	while (!info->end)
+	{
+		i = -1;
+		philo_full = 0;
+		while (++i < info->nb_philo)
+		{
+			pthread_mutex_lock(&info->philo[i].meal_mutex);
+			time_hungry = get_time_ms() - info->philo[i].last_meal;
+			if (time_hungry > info->ttd)
+			{
+				safe_printf(&info->philo[i], "died");
+				pthread_mutex_lock(&info->end_mutex);
+				info->end = TRUE;
+				pthread_mutex_unlock(&info->end_mutex);
+				pthread_mutex_unlock(&info->philo[i].meal_mutex);
+				return (NULL);
+			}
+			if (info->max_meals > 0
+				&& info->philo[i].nb_meals >= info->max_meals)
+				philo_full++;
+			pthread_mutex_unlock(&info->philo[i].meal_mutex);
+		}
+		if (info->max_meals > 0 && philo_full == info->nb_philo)
+		{
+			info->end = TRUE;
+			return (NULL);
+		}
+		else
+			usleep(1000);
+	}
+	return (NULL);
 }
