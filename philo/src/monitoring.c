@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 14:49:07 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/08 13:08:25 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/08 13:39:26 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ void	*monitor_routine(void *arg)
 		}
 		if (info->max_meals > 0 && philo_full == info->nb_philo)
 		{
-			info->end = TRUE;
+			pthread_mutex_lock(&info->end_mutex);
+            info->end = TRUE;
+            pthread_mutex_unlock(&info->end_mutex);
 			return (NULL);
 		}
 		else

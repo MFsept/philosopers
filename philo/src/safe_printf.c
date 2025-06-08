@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 12:42:28 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/08 13:18:59 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/08 13:35:17 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,21 @@
 
 void	safe_printf(t_philo *philo, const char *msg)
 {
-    long	timestamp;
+	long	timestamp;
 
-    timestamp = get_time_ms() - philo->info->start_time;
-    safe_handle_mutex(&philo->info->print_mutex, LOCK);
-    if (!philo->info->end)
-        printf("%ld %d %s\n", timestamp, philo->id, msg);
-    safe_handle_mutex(&philo->info->print_mutex, UNLOCK);
+	timestamp = get_time_ms() - philo->info->start_time;
+	safe_handle_mutex(&philo->info->print_mutex, LOCK);
+	if (!philo->info->end)
+		printf("%ld %d %s\n", timestamp, philo->id, msg);
+	safe_handle_mutex(&philo->info->print_mutex, UNLOCK);
 }
 
-long    get_time_ms(void)
+long	get_time_ms(void)
 {
-    struct timeval tv;
-    long time;
-    gettimeofday(&tv, NULL);
-    time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
-    return (time);
+	struct timeval	tv;
+	long			time;
+
+	gettimeofday(&tv, NULL);
+	time = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	return (time);
 }
