@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 12:21:46 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/09 21:54:39 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/09 22:09:18 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	routine(t_philo *philo, pthread_mutex_t *first,
 		safe_printf(philo, "is sleeping");
 		smart_usleep(philo->info->tts, philo->info);
 		safe_printf(philo, "is thinking");
-		smart_usleep(philo->info->ttk, philo->info);
+		smart_usleep(test(philo), philo->info);
 	}
 }
 

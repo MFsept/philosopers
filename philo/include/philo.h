@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 02:23:24 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/09 21:47:43 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/09 22:09:07 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct s_info
 	long			ttd;
 	long			tte;
 	long			tts;
-	long			ttk;
 	long			max_meals;
 	int				end;
 	pthread_mutex_t	end_mutex;
@@ -85,6 +84,7 @@ int					check_args(int ac, char **av);
 // UTILS
 char				*valid_input(char *s);
 long				ft_atol(char *s);
+int					ttk(t_philo *philo);
 
 // ROUTINE
 void				*philo_routine(void *arg);

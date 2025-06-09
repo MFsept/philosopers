@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 12:09:15 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/09 21:46:23 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/09 22:09:23 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,23 @@ long	ft_atol(char *s)
 	if (result > INT_MAX)
 		return (printf("%s : The number is not an integer\n", s), 0);
 	return (result);
+}
+
+int	ttk(t_philo *philo)
+{
+	int	time_to_think;
+	int	temp;
+
+	time_to_think = (philo->info->ttd);
+	temp = ((get_time_ms() - philo->last_meal) + philo->info->tte);
+	if (temp >= time_to_think)
+		time_to_think = 0;
+	else
+	{
+		time_to_think -= temp;
+		time_to_think /= 2;
+		if (time_to_think > 500)
+			time_to_think = 150;
+	}
+	return (time_to_think);
 }
