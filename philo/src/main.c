@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 02:23:28 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/08 13:16:36 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/09 11:27:01 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ int	main(int ac, char **av)
 		return (1);
     info.start_time = get_time_ms();
 	init_args(&info, av);
+	if (info.nb_philo <= 0 || info.nb_philo > 200 ||
+        info.ttd <= 0 || info.tte <= 0 || info.tts <= 0)
+    {
+        printf("Arguments must be > 0 and <= 200 philosophers\n");
+        return (1);
+    }
 	init_info(&info);
 	i = -1;
 	while (++i < info.nb_philo)
