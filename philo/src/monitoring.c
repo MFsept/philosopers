@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 14:49:07 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/09 11:17:50 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/09 13:36:23 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	*monitor_routine(void *arg)
 
 	info = (t_info *)arg;
 	while (1)
-    {
-        pthread_mutex_lock(&info->end_mutex);
-        if (info->end)
-        {
-            pthread_mutex_unlock(&info->end_mutex);
-            break;
-        }
-        pthread_mutex_unlock(&info->end_mutex);
+	{
+		pthread_mutex_lock(&info->end_mutex);
+		if (info->end)
+		{
+			pthread_mutex_unlock(&info->end_mutex);
+			break ;
+		}
+		pthread_mutex_unlock(&info->end_mutex);
 		i = -1;
 		philo_full = 0;
 		while (++i < info->nb_philo)
@@ -51,7 +51,8 @@ void	*monitor_routine(void *arg)
 		}
 		if (info->max_meals > 0 && philo_full == info->nb_philo)
 		{
-			pthread_mutex_lock(&info->end_mutex);			info->end = TRUE;
+			pthread_mutex_lock(&info->end_mutex);
+			info->end = TRUE;
 			pthread_mutex_unlock(&info->end_mutex);
 			return (NULL);
 		}

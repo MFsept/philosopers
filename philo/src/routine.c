@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 12:21:46 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/09 11:58:47 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/09 15:48:24 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,17 @@ void	*philo_routine(void *arg)
 {
     t_philo	*philo;
     int		end;
-
+    long ttk;
+    
     philo = (t_philo *)arg;
+    ttk = philo->info->ttd - philo->info->tte - philo->info->tts;
     if (philo->info->nb_philo == 1)
         return (one_philo(philo));
     if (philo->id % 2 == 0)
+    {
+        // safe_printf(philo, "is thinking");
         usleep(2000);
+    }
     while (1)
     {
         pthread_mutex_lock(&philo->info->end_mutex);
@@ -113,6 +118,10 @@ void	*philo_routine(void *arg)
         philo->nb_meals++;
         pthread_mutex_unlock(&philo->meal_mutex);
         smart_usleep(philo->info->tte, philo->info);
+        // pthread_mutex_lock(&philo->meal_mutex);
+        // philo->last_meal = get_time_ms();
+        // philo->nb_meals++;
+        // pthread_mutex_unlock(&philo->meal_mutex);
 
         safe_handle_mutex(philo->left_fork, UNLOCK);
         safe_handle_mutex(philo->right_fork, UNLOCK);
@@ -120,6 +129,7 @@ void	*philo_routine(void *arg)
         safe_printf(philo, "is sleeping");
         smart_usleep(philo->info->tts, philo->info);
         safe_printf(philo, "is thinking");
+        smart_usleep(ttk, philo->info);
     }
     return (NULL);
 }
