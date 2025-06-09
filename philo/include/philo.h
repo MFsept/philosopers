@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 02:23:24 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/09 21:36:14 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:47:43 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ long				ft_atol(char *s);
 void				*philo_routine(void *arg);
 
 // INIT_ARGS
-void				init_args(t_info *info, char **av);
+int					init_args(t_info *info, char **av);
 void				init_info(t_info *info);
 void				init_philo(t_info *info);
 void				init_forks(t_info *info, t_philo *philo, int i);
@@ -102,10 +102,3 @@ void				safe_handle_mutex(pthread_mutex_t *mtx, t_mutex code);
 void				safe_handle_thread(pthread_t *thread, void *(*foo)(void *),
 						void *data, t_thread code);
 #endif
-
-// start process -> philo pair usleep1000
-// start eating -> philo pair usleep500
-// start thinking -> philo pair usleep100
-// choisir pair ou impair juste pour empehcer que les threads qui suit rattrape le process en cours eteviter les deadlock
-
-// check pour mettre en place une desync

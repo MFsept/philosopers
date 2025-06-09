@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 12:09:15 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/09 21:32:00 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:46:23 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@ static inline int	ft_is_digit(char c)
 {
 	return (c >= 48 && c <= 57);
 }
+
 static inline int	ft_is_space(char c)
 {
 	return (c >= 9 && c <= 13);
 }
+
 char	*valid_input(char *s)
 {
 	int		len;
 	char	*valid_nb;
-	int i;
+	int		i;
 
 	i = 0;
 	len = 0;
@@ -43,9 +45,10 @@ char	*valid_input(char *s)
 		return (printf("%s : The number is bigger than INT_MAX\n", s), NULL);
 	return (valid_nb);
 }
+
 long	ft_atol(char *s)
 {
-	long result;
+	long	result;
 
 	result = 0;
 	if (!valid_input(s))

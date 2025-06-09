@@ -6,11 +6,20 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 12:21:46 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/09 21:38:06 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:54:39 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	take_forks_and_print(t_philo *philo, pthread_mutex_t *first,
+		pthread_mutex_t *second)
+{
+	safe_handle_mutex(first, LOCK);
+	safe_printf(philo, "has taken a fork");
+	safe_handle_mutex(second, LOCK);
+	safe_printf(philo, "has taken a fork");
+}
 
 static void	smart_usleep(long duration, t_info *info)
 {
@@ -38,12 +47,39 @@ static char	*one_philo(t_philo *philo)
 	return (NULL);
 }
 
+static void	routine(t_philo *philo, pthread_mutex_t *first,
+		pthread_mutex_t *second)
+{
+	int	end;
+
+	while (1)
+	{
+		pthread_mutex_lock(&philo->info->end_mutex);
+		end = philo->info->end;
+		pthread_mutex_unlock(&philo->info->end_mutex);
+		if (end)
+			break ;
+		take_forks_and_print(philo, first, second);
+		safe_printf(philo, "is eating");
+		smart_usleep(philo->info->tte, philo->info);
+		pthread_mutex_lock(&philo->meal_mutex);
+		philo->last_meal = get_time_ms();
+		philo->nb_meals++;
+		pthread_mutex_unlock(&philo->meal_mutex);
+		safe_handle_mutex(first, UNLOCK);
+		safe_handle_mutex(second, UNLOCK);
+		safe_printf(philo, "is sleeping");
+		smart_usleep(philo->info->tts, philo->info);
+		safe_printf(philo, "is thinking");
+		smart_usleep(philo->info->ttk, philo->info);
+	}
+}
+
 void	*philo_routine(void *arg)
 {
-	t_philo	*philo;
-	int		end;
-    pthread_mutex_t *first;
-    pthread_mutex_t *second;
+	t_philo			*philo;
+	pthread_mutex_t	*first;
+	pthread_mutex_t	*second;
 
 	philo = (t_philo *)arg;
 	if (philo->left_fork < philo->right_fork)
@@ -60,29 +96,6 @@ void	*philo_routine(void *arg)
 		return (one_philo(philo));
 	if (philo->id % 2 == 0)
 		usleep(2000);
-	while (1)
-	{
-		pthread_mutex_lock(&philo->info->end_mutex);
-		end = philo->info->end;
-		pthread_mutex_unlock(&philo->info->end_mutex);
-		if (end)
-			break ;
-		safe_handle_mutex(first, LOCK);
-		safe_printf(philo, "has taken a fork");
-		safe_handle_mutex(second, LOCK);
-		safe_printf(philo, "has taken a fork");
-		safe_printf(philo, "is eating");
-		smart_usleep(philo->info->tte, philo->info);
-		pthread_mutex_lock(&philo->meal_mutex);
-		philo->last_meal = get_time_ms();
-		philo->nb_meals++;
-		pthread_mutex_unlock(&philo->meal_mutex);
-		safe_handle_mutex(first, UNLOCK);
-        safe_handle_mutex(second, UNLOCK);
-		safe_printf(philo, "is sleeping");
-		smart_usleep(philo->info->tts, philo->info);
-		safe_printf(philo, "is thinking");
-		smart_usleep(philo->info->ttk, philo->info);
-	}
+	routine(philo, first, second);
 	return (NULL);
 }
