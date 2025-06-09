@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 12:21:46 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/09 16:48:55 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:38:06 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,10 @@ void	*philo_routine(void *arg)
 {
 	t_philo	*philo;
 	int		end;
-	long	ttk;
     pthread_mutex_t *first;
     pthread_mutex_t *second;
 
 	philo = (t_philo *)arg;
-	ttk = philo->info->ttd - philo->info->tte - philo->info->tts;
 	if (philo->left_fork < philo->right_fork)
 	{
 		first = philo->left_fork;
@@ -84,7 +82,7 @@ void	*philo_routine(void *arg)
 		safe_printf(philo, "is sleeping");
 		smart_usleep(philo->info->tts, philo->info);
 		safe_printf(philo, "is thinking");
-		smart_usleep(ttk, philo->info);
+		smart_usleep(philo->info->ttk, philo->info);
 	}
 	return (NULL);
 }

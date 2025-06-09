@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 02:23:24 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/08 13:06:18 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:36:14 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_info
 	long			ttd;
 	long			tte;
 	long			tts;
+	long			ttk;
 	long			max_meals;
 	int				end;
 	pthread_mutex_t	end_mutex;

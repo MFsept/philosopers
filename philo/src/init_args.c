@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 12:35:18 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/08 13:12:36 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/09 21:37:16 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void	init_info(t_info *info)
 		safe_handle_mutex(&info->fork[i], INIT);
 	safe_handle_mutex(&info->print_mutex, INIT); 
     init_philo(info);
+	info->ttk = info->ttd - info->tte - info->tts;
+	if (info->ttk < 0)
+		info->ttk = 0;
 }
 void	init_philo(t_info *info)
 {
