@@ -6,20 +6,41 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 12:09:15 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/09 22:09:23 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:32:06 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static inline int	ft_is_digit(char c)
+static int	ft_is_digit(char *s)
 {
-	return (c >= 48 && c <= 57);
+	int	i;
+
+	i = 0;
+	while(s[i])
+	{
+		if (s[i] >= '0' && s[i] <= '9')
+			i++;
+		else
+			return (FALSE);
+	}
+	return (TRUE);
+	
 }
 
-static inline int	ft_is_space(char c)
+static int	ft_is_space(char *s)
 {
-	return (c >= 9 && c <= 13);
+	int	i;
+
+	i = 0;
+	while(s[i])
+	{
+		if (s[i] >= 9 && s[i] <= 13)
+			i++;
+		else
+			return (FALSE);
+	}
+	return (TRUE);
 }
 
 char	*valid_input(char *s)
@@ -30,19 +51,19 @@ char	*valid_input(char *s)
 
 	i = 0;
 	len = 0;
-	while (ft_is_space(s[i]))
+	while (ft_is_space(s))
 		i++;
 	if (s[i] == '+')
 		i++;
 	else if (*s == '-')
-		return (printf("%s : The number must be positive\n", s), NULL);
-	else if (!ft_is_digit(s[i]))
-		return (printf("%s : Only digit characters are accepted\n", s), NULL);
+		return (printf("The number must be positive\n"), NULL);
+	else if (!ft_is_digit(s))
+		return (printf("Only digit characters are accepted\n"), NULL);
 	valid_nb = s + i;
-	while (ft_is_digit(s[i++]))
+	while ((s[i] >= '0' && s[i++] <= '9'))
 		len++;
 	if (len > 10)
-		return (printf("%s : The number is bigger than INT_MAX\n", s), NULL);
+		return (printf("The number is bigger than INT_MAX\n"), NULL);
 	return (valid_nb);
 }
 
@@ -53,10 +74,10 @@ long	ft_atol(char *s)
 	result = 0;
 	if (!valid_input(s))
 		return (0);
-	while (ft_is_digit(*s))
+	while (*s >= '0' && *s <= '9')
 		result = result * 10 + (*s++ - 48);
 	if (result > INT_MAX)
-		return (printf("%s : The number is not an integer\n", s), 0);
+		return (printf("The number is not an integer\n"), 0);
 	return (result);
 }
 

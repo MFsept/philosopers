@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 02:23:28 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/10 11:56:01 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:08:18 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int ac, char **av)
 	info.start_time = get_time_ms();
 	if (init_args(&info, av))
 		return (1);
-	if (init_info(&info), info.nb_philo == 0)
+	if (init_info(&info), info.nb_philo == 0 || info.max_meals == 0)
 		return (0);
 	i = -1;
 	while (++i < info.nb_philo)
