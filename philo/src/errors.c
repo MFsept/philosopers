@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 11:52:06 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/10 15:10:24 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/10 16:02:47 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	check_args(int ac, char **av)
 		nb_arg = 4;
 	while (i <= nb_arg)
 	{
-		if (!av[i]  || av[i][0] == '\0')
+		if (!av[i] || av[i][0] == '\0')
 			return (printf("Empty argument\n"), ERROR);
 		if (!valid_input(av[i]))
 			return (ERROR);

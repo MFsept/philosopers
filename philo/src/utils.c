@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 12:09:15 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/10 15:14:09 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/10 16:02:51 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ int	ttk(t_philo *philo)
 	int	temp;
 
 	time_to_think = (philo->info->ttd);
+	pthread_mutex_lock(&philo->meal_mutex);
 	temp = ((get_time_ms() - philo->last_meal) + philo->info->tte);
+	pthread_mutex_unlock(&philo->meal_mutex);
 	if (temp >= time_to_think)
 		time_to_think = 0;
 	else
