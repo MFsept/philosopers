@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 12:09:15 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/10 14:32:06 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:49:02 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_is_digit(char *s)
 	int	i;
 
 	i = 0;
-	while(s[i])
+	while (s[i])
 	{
 		if (s[i] >= '0' && s[i] <= '9')
 			i++;
@@ -25,7 +25,6 @@ static int	ft_is_digit(char *s)
 			return (FALSE);
 	}
 	return (TRUE);
-	
 }
 
 static int	ft_is_space(char *s)
@@ -33,7 +32,7 @@ static int	ft_is_space(char *s)
 	int	i;
 
 	i = 0;
-	while(s[i])
+	while (s[i])
 	{
 		if (s[i] >= 9 && s[i] <= 13)
 			i++;

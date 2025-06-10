@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 14:49:07 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/10 11:07:59 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:50:02 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check_philos(t_info *info, int *philo_full)
 			pthread_mutex_lock(&info->end_mutex);
 			info->end = TRUE;
 			safe_handle_mutex(&info->print_mutex, LOCK);
-			printf("%li %i died\n", get_time_ms(), info->philo[i].id);
+			printf("%li %i died\n", get_time_ms() - info->start_time, info->philo[i].id);
 			safe_handle_mutex(&info->print_mutex, UNLOCK);
 			pthread_mutex_unlock(&info->end_mutex);
 			pthread_mutex_unlock(&info->philo[i].meal_mutex);
