@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 12:35:18 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/10 15:10:26 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/12 14:59:37 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	init_args(t_info *info, char **av)
 {
+	memset(info, 0, sizeof(t_info));
+	info->start_time = get_time_ms();
 	info->nb_philo = ft_atol(av[1]);
 	info->ttd = ft_atol(av[2]);
 	info->tte = ft_atol(av[3]);
