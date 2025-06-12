@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 12:35:18 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/12 16:43:01 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:58:34 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ int	init_args(t_info *info, char **av)
 		info->max_meals = ft_atol(av[5]);
 	else
 		info->max_meals = -1;
-	if (info->nb_philo <= 0 || info->nb_philo > 200
-        || info->ttd <= 0 || info->tte <= 0 || info->tts <= 0
-        || info->nb_philo == -1 || info->ttd == -1 || info->tte == -1 || info->tts == -1)
+	if (info->nb_philo < 0 || info->nb_philo > 200
+        || info->ttd < 0 || info->tte < 0 || info->tts < 0)
     {
         printf("Arguments must be > 0 and <= 200 philosophers\n");
         return (1);

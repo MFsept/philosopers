@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 12:21:46 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/12 16:27:19 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:55:46 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	smart_usleep(long duration, t_info *info)
 		pthread_mutex_unlock(&info->end_mutex);
 		if (end || (get_time_ms() - start >= duration))
 			break ;
-		usleep(100);
+		usleep(500);
 	}
 }
 
@@ -60,11 +60,11 @@ static void	routine(t_philo *philo, pthread_mutex_t *first,
 		if (end)
 			break ;
 		take_forks_and_print(philo, first, second);
-		safe_printf(philo, "is eating");
 		pthread_mutex_lock(&philo->meal_mutex);
 		philo->last_meal = get_time_ms();
 		philo->nb_meals++;
 		pthread_mutex_unlock(&philo->meal_mutex);
+		safe_printf(philo, "is eating");
 		smart_usleep(philo->info->tte, philo->info);
 		safe_handle_mutex(first, UNLOCK);
 		safe_handle_mutex(second, UNLOCK);
@@ -95,7 +95,7 @@ void	*philo_routine(void *arg)
 	if (philo->info->nb_philo == 1)
 		return (one_philo(philo));
 	if (philo->id % 2 == 0)
-		usleep(2000);
+		usleep(5000);
 	routine(philo, first, second);
 	return (NULL);
 }

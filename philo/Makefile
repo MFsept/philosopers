@@ -19,7 +19,7 @@ OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 INCLUDE = include
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror 
 
 all: $(NAME)
 
