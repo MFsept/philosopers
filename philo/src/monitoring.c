@@ -6,11 +6,18 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 14:49:07 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/12 16:27:18 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/12 17:28:48 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	put_end(t_info *info)
+{
+	pthread_mutex_lock(&info->end_mutex);
+	info->end = TRUE;
+	pthread_mutex_unlock(&info->end_mutex);
+}
 
 static int	check_philos(t_info *info, int *philo_full)
 {
@@ -25,9 +32,7 @@ static int	check_philos(t_info *info, int *philo_full)
 		time_hungry = get_time_ms() - info->philo[i].last_meal;
 		if (time_hungry > info->ttd)
 		{
-			pthread_mutex_lock(&info->end_mutex);
-			info->end = TRUE;
-			pthread_mutex_unlock(&info->end_mutex);
+			put_end(info);
 			pthread_mutex_lock(&info->print_mutex);
 			printf("%li %i died\n", get_time_ms() - info->start_time,
 				info->philo[i].id);
