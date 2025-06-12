@@ -6,7 +6,7 @@
 /*   By: mfernand <mfernand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 12:21:46 by mfernand          #+#    #+#             */
-/*   Updated: 2025/06/10 15:10:46 by mfernand         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:01:04 by mfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ static void	routine(t_philo *philo, pthread_mutex_t *first,
 			break ;
 		take_forks_and_print(philo, first, second);
 		safe_printf(philo, "is eating");
-		smart_usleep(philo->info->tte, philo->info);
 		pthread_mutex_lock(&philo->meal_mutex);
 		philo->last_meal = get_time_ms();
 		philo->nb_meals++;
 		pthread_mutex_unlock(&philo->meal_mutex);
+		smart_usleep(philo->info->tte, philo->info);
 		safe_handle_mutex(first, UNLOCK);
 		safe_handle_mutex(second, UNLOCK);
 		safe_printf(philo, "is sleeping");
